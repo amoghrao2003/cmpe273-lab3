@@ -25,7 +25,7 @@ public class ConsistentHash<T> {
     public void add(T node) {
         for (int i = 0; i < numberOfReplicas; i++) {
         	Long l=hashFunction.hashString(node.toString() + i).asLong();
-        	System.out.println("Hash value of node "+l);
+        	//System.out.println("Hash value of node "+l);
             circle.put(l, node);
         }
     }
@@ -37,16 +37,16 @@ public class ConsistentHash<T> {
     }
 
     public T get(Object key) {
-    	System.out.println("In ch get Method");
+    	//System.out.println("In ch get Method");
         if (circle.isEmpty()) {
             return null;
         }
         long hash = hashFunction.hashString(key.toString()).asLong();
-        System.out.println("Hash value of key "+hash);
+        //System.out.println("Hash value of key "+hash);
         if (!circle.containsKey(hash)) {
             SortedMap<Long, T> tailMap = circle.tailMap(hash);
             hash = tailMap.isEmpty() ? circle.firstKey() : tailMap.firstKey();
-            System.out.println("Circle First Key "+circle.firstKey()+" Tail Map First Key"+tailMap.firstKey());
+            //System.out.println("Circle First Key "+circle.firstKey()+" Tail Map First Key"+tailMap.firstKey());
         }
         return circle.get(hash);
     }

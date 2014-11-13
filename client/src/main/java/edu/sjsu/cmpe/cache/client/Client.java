@@ -25,8 +25,10 @@ public class Client {
 		for (int i = 1, j = 97; i <= 10 && j <= 106; i++, j++) {
 			String serverURL = ch.get(i);
 			CacheServiceInterface cache = new DistributedCacheService(serverURL);
-			System.out.println(serverURL);
+			System.out.println("PUT in node "+serverURL);
+			System.out.println("put("+i+","+String.valueOf((char) j)+")");
 			cache.put(i, String.valueOf((char) j));
+			System.out.println("GET from node "+serverURL);
 			System.out.println("get(" + i + ") => " + cache.get(i));
 		}
 		System.out.println("Existing Cache Client...");
